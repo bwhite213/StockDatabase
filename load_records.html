@@ -1,0 +1,32 @@
+<html>
+<head>    
+</head>
+<body>
+<div align = "center">
+<h1> Load records file for transactions. </h1>
+<h5> Select the records file to load into the database.</h5>
+ 
+<form action="load_records.php" method="post" enctype="multipart/form-data" >
+<label for="file">Filename:</label>
+<input type="file" name="file" id="file"><br>
+<input type="submit" name="submit" value="Submit">
+</form>
+
+<h5> Or enter your record lines below.</h5>
+
+<form action="loadLines.php" method="post" enctype="multipart/form-data">
+Input Lines:<textarea name="records">Enter records here.</textarea> 
+<input type="submit" name="submitRecord" value="Submit">
+</form>
+
+<form action="clearTables.php" method="post" enctype="multipart/form-data">
+<input type="submit" name="clearTables" value="Clear Record Tables">
+</form>
+
+<h2> <a href="index.html">Return home</a></h2>
+</div>
+
+</body>
+</html>
+
+

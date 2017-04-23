@@ -1,0 +1,38 @@
+<?php
+
+try {
+        $dbh = new PDO('mysql:host=localhost;port=3306;dbname=stock_history', 'stocks', 'stockpass', array( PDO::ATTR_PERSISTENT => false));
+	
+	//$stmt = $dbh->prepare("INSERT INTO stock_data(symbol,date,open,high,low,close,volume,adj_close) VALUES(?,?,?,?,?,?,?,?)");
+$stmt = $dbh->prepare("LOAD DATA LOCAL INFILE '?' INTO TABLE stock_data");
+	
+	$dir = "/home/beezy/Documents/stock_data/";
+	$files = scandir($dir);
+	$counter = 0;
+	// Loop through all of the history csv files and insert them into the created 
+	// stock_data table in our database.
+	foreach($files as $file){
+		//$fp = fopen($dir . $file, 'rb');
+		$stmt->execute($dir . $file);
+//		$data = fgetcsv($fp, 1000);
+//		
+//		while (FALSE !== ($data = fgetcsv($fp, 1000))) {
+//
+//			$cols = array_slice($data, 0, 7);
+//			$sym = preg_replace('/\.[^.]+$/','', $file);
+//			$colms = array_unshift($cols, $sym);
+//			foreach ($colms as $col){
+//				echo $col;			
+//			}      
+//			// call the stored procedure
+//			$stmt->execute($cols);
+//		}	
+	$counter = $counter + 1;	
+	}
+
+	echo "Loaded: ". $counter . " CSV files.";
+    } catch (PDOException $e) {
+        print "Error!: " . $e->getMessage() . "<br/>";
+        die();
+    }
+?>
